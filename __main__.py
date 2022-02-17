@@ -3,6 +3,8 @@ from cProfile import label
 
 def main():
     import distance as dist
+    from skbio import DistanceMatrix
+    from skbio.tree import nj
 
     #whole k-mers dictionaries
     R6_a = dist.kmers_from_seq("R6.fa", 14)
@@ -32,14 +34,32 @@ def main():
     draft82_hash = dist.file2list("draft82.txt")
     draft84_hash = dist.file2list("draft84.txt")
 
+    R6vsTIGR4 = dist.minhash_jaccard(R6_hash, TIGR_hash)
+    R6vsdraft82 = dist.minhash_jaccard(R6_hash, draft82_hash)
+    R6vsdraft84 = dist.minhash_jaccard(R6_hash, draft84_hash)
+    TIGR4vsdraft82 = dist.minhash_jaccard(TIGR_hash, draft82_hash)
+    TIGR4vsdraft84 = dist.minhash_jaccard(TIGR_hash, draft84_hash)
+    draft82vsdraft84 = dist.minhash_jaccard(draft82_hash, draft84_hash)
+
+    dist_list = [R6vsTIGR4, R6vsdraft82, R6vsdraft84, TIGR4vsdraft82, TIGR4vsdraft84, draft82vsdraft84]
+
     #minhash Jaccard distances. Use of text files
     print("\nMinHash Jaccard distances :\n")
-    print("R6 vs TIGR4 :", dist.minhash_jaccard(R6_hash, TIGR_hash))
-    print("R6 vs draft82 :", dist.minhash_jaccard(R6_hash, draft82_hash))
-    print("R6 vs draft84 :", dist.minhash_jaccard(R6_hash, draft84_hash))
-    print("TIGR4 vs draft82 :", dist.minhash_jaccard(TIGR_hash, draft82_hash))
-    print("TIGR4 vs draft84 :", dist.minhash_jaccard(TIGR_hash, draft84_hash))
-    print("draft82 vs draft84 :", dist.minhash_jaccard(draft82_hash, draft84_hash))
+    print(f"R6 vs TIGR4 : {R6vsTIGR4}")
+    print(f"R6 vs draft82 : {R6vsdraft82}")
+    print(f"R6 vs draft84 : {R6vsdraft84}")
+    print(f"TIGR4 vs draft82 : {TIGR4vsdraft82}")
+    print(f"TIGR4 vs draft84 : {TIGR4vsdraft84}")
+    print(f"draft82 vs draft84 : {draft82vsdraft84}")
+
+    ids = ['R6', 'TIGR4', 'draft82', 'draft84']
+    dm = DistanceMatrix(dist_list, ids)
+
+    tree = nj(dm)
+    print()
+    print(tree.ascii_art())
+
+
 
 def multiple(kmers=14, sketch_min=100, sketch_max=1000, step=100):
     import distance as dist
