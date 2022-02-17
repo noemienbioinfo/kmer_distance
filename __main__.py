@@ -5,6 +5,7 @@ def main():
     import distance as dist
     from skbio import DistanceMatrix
     from skbio.tree import nj
+    from Bio import Phylo
 
     #whole k-mers dictionaries
     R6_a = dist.kmers_from_seq("R6.fa", 14)

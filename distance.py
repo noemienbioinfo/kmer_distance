@@ -87,3 +87,15 @@ def file2list(file):
             kmers_list.append(line.rstrip())
 
     return kmers_list
+
+def make_matrix(list_of_scores):
+    matrix = []
+    for i in range(len(list_of_scores)):
+        line_matrix = []
+        for j in range(len(list_of_scores)):
+            if list_of_scores[i] >= list_of_scores[j]:
+                line_matrix.append(list_of_scores[i]-list_of_scores[j])
+            else:
+                line_matrix.append(list_of_scores[j]-list_of_scores[i])
+        matrix.append(line_matrix)
+    return matrix
