@@ -88,6 +88,7 @@ def file2list(file):
 
     return kmers_list
 
+#make distance matrix used for drawing tree
 def make_matrix(list_of_scores):
     matrix = []
     for i in range(len(list_of_scores)):

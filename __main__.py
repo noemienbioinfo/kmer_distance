@@ -52,6 +52,7 @@ def main():
     print(f"TIGR4 vs draft84 : {TIGR4vsdraft84}")
     print(f"draft82 vs draft84 : {draft82vsdraft84}")
 
+    #neighbor joining tree. Calculation of the distance matrix then draw tree
     ids = ['R6', 'TIGR4', 'draft82', 'draft84']
     dm = DistanceMatrix(dist_list, ids)
 
@@ -65,6 +66,8 @@ def multiple(kmers=14, sketch_min=100, sketch_max=1000, step=100):
     import distance as dist
     import matplotlib.pyplot as plt
 
+    #calculate distances with Minhash calc from raw data and append distances into
+    #lists in chosen range
     x = [0, ]
     y_R6_TIGR = [0, ]
     y_R6_D82 = [0, ]
@@ -95,6 +98,7 @@ def multiple(kmers=14, sketch_min=100, sketch_max=1000, step=100):
         y_TIGR_D84.append(Hdist_TIGR_D84)
         y_D82_D84.append(Hdist_D82_D84)
        
+    #from x list and y lists, plot graph then draw it
     fig, ax = plt.subplots()
 
     ax.plot(x, y_R6_TIGR, label='R6vsTIGR')

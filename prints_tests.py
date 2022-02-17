@@ -73,31 +73,31 @@ import distance
 ##########                    matrix tests                   ##########
 #######################################################################
 
-from skbio import DistanceMatrix
-from skbio.tree import nj
+# from skbio import DistanceMatrix
+# from skbio.tree import nj
 
-#get sketch for each sample
-R6_hash = distance.file2list("R6.txt")
-TIGR_hash = distance.file2list("TIGR4.txt")
-draft82_hash = distance.file2list("draft82.txt")
-draft84_hash = distance.file2list("draft84.txt")
+# #get sketch for each sample
+# R6_hash = distance.file2list("R6.txt")
+# TIGR_hash = distance.file2list("TIGR4.txt")
+# draft82_hash = distance.file2list("draft82.txt")
+# draft84_hash = distance.file2list("draft84.txt")
 
-#calculate distances for each versus then store it in list
-R6vsTIGR4 = distance.minhash_jaccard(R6_hash, TIGR_hash)
-R6vsdraft82 = distance.minhash_jaccard(R6_hash, draft82_hash)
-R6vsdraft84 = distance.minhash_jaccard(R6_hash, draft84_hash)
-TIGR4vsdraft82 = distance.minhash_jaccard(TIGR_hash, draft82_hash)
-TIGR4vsdraft84 = distance.minhash_jaccard(TIGR_hash, draft84_hash)
-draft82vsdraft84 = distance.minhash_jaccard(draft82_hash, draft84_hash)
+# #calculate distances for each versus then store it in list
+# R6vsTIGR4 = distance.minhash_jaccard(R6_hash, TIGR_hash)
+# R6vsdraft82 = distance.minhash_jaccard(R6_hash, draft82_hash)
+# R6vsdraft84 = distance.minhash_jaccard(R6_hash, draft84_hash)
+# TIGR4vsdraft82 = distance.minhash_jaccard(TIGR_hash, draft82_hash)
+# TIGR4vsdraft84 = distance.minhash_jaccard(TIGR_hash, draft84_hash)
+# draft82vsdraft84 = distance.minhash_jaccard(draft82_hash, draft84_hash)
 
-dist_list = [R6vsTIGR4, R6vsdraft82, R6vsdraft84, TIGR4vsdraft82, TIGR4vsdraft84, draft82vsdraft84]
+# dist_list = [R6vsTIGR4, R6vsdraft82, R6vsdraft84, TIGR4vsdraft82, TIGR4vsdraft84, draft82vsdraft84]
 
-#print the matrix. Just to verify rapidly the scores
-for i in range(len(dist_list)-1):
-    print(distance.make_matrix(dist_list)[i])
+# #print the matrix. Just to verify rapidly the scores
+# for i in range(len(dist_list)-1):
+#     print(distance.make_matrix(dist_list)[i])
 
-ids = ['R6', 'TIGR4', 'draft82', 'draft84']
-dm = DistanceMatrix(dist_list, ids)
+# ids = ['R6', 'TIGR4', 'draft82', 'draft84']
+# dm = DistanceMatrix(dist_list, ids)
 
-tree = nj(dm)
-print(tree.ascii_art())
+# tree = nj(dm)
+# print(tree.ascii_art())
